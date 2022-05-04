@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {% block head %}
+
+  <title>Atlit Riau dan Kepulauan Riau</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='/css/main.css') }}">
+
+  {% endblock %}
+
+</head>
+<body>
+
+  <nav class="navbar">
+    <span>Satu Data | Olahraga Renang</span>
+    <span>Provinsi Riau dan Kepulauan Riau</span>
+  </nav>
+  
+  <!-- Main Content -->
+  {% block content %}
+  {% endblock %}
+
+  <!-- Javascript Files -->
+  {% block scripts %}
+	<script src="{{ url_for("static", filename="js/main.js") }}" defer></script>
+	{% endblock %}
+
+</body>
+</html>

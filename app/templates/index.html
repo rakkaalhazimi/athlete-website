@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="home-title">Pencarian Atlet</h1>
+
+<!-- Search Bar -->
+<div class="search-bar-wrapper">
+  <form method="get">
+    <input type="text" placeholder="Masukkan Nama Atlet">
+    <input type="submit" value="Submit">
+  </form>
+  <div class="search-bar"></div>
+  <i class="search-icon"></i>
+</div>
+
+<!-- Search Results -->
+{% if True %}
+{% endif %}
+<div class="search-result-wrapper">
+  <p class="search-result-time">Waktu pencarian: 10 detik</p>
+  <table class="search-result-table">
+    <tr>
+      <th>ID</th>
+      <th>Nama</th>
+      <th>Klub</th>
+      <th>Kota/Kab</th>
+      <th>Provinsi</th>
+    </tr>
+    {% for people in athletes %}
+      <tr>
+        <td>{{ people }}</td>
+        <td>{{ people }}</td>
+        <td>{{ people }}</td>
+        <td>{{ people }}</td>
+        <td>{{ people }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

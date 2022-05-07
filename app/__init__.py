@@ -34,4 +34,4 @@ db.create_all()
 admin = Admin(app, name='microblog', template_mode='bootstrap3')
 admin.add_view(ModelView(User, db.session))
 
-from app import routes
+from app import routes, commands

@@ -5,8 +5,8 @@ class Config(object):
     DEBUG = False
     TESTING = False
 
-    ES_USER = ""
-    ES_PWD = ""
+    ES_USER = "elastic"
+    ES_PWD = "ukPIFFhT0YVkh-epZtoE"
     ES_SERVER = "https://localhost:9200"
 
     MONGO_SERVER = "localhost:27017"

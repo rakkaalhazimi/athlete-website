@@ -20,19 +20,30 @@
   <p class="search-result-time">Waktu pencarian: 10 detik</p>
   <table class="search-result-table">
     <tr>
-      <th>ID</th>
-      <th>Nama</th>
-      <th>Klub</th>
-      <th>Kota/Kab</th>
-      <th>Provinsi</th>
+      <th>Athlete_ID</th>
+      <th>Athlete_Name</th>
+      <th>NISNAS</th>
+      <th>DoB</th>
+      <th>Sex</th>
+      <th>Level</th>
+      <th>Current_School</th>
+      <th>Current_Club</th>
+      <th>Current_City</th>
+      <th>Current_Province</th>
     </tr>
-    {% for people in athletes %}
+    {% for athlete in athletes %}
       <tr>
-        <td>{{ people }}</td>
-        <td>{{ people }}</td>
-        <td>{{ people }}</td>
-        <td>{{ people }}</td>
-        <td>{{ people }}</td>
+        <td>{{ athlete["Athlete_ID"] }}</td>
+        <td>{{ athlete["Athlete_Name"] }}</td>
+        <td>{{ athlete["NISNAS"] }}</td>
+        <td>{{ athlete["DoB"] }}</td>
+        <td>{{ athlete["Sex"] }}</td>
+        <td>{{ athlete["Level"] }}</td>
+        <td>{{ athlete["Current_School"] }}</td>
+        <td>{{ athlete["Current_Club"] }}</td>
+        <td>{{ athlete["Current_City"] }}</td>
+        <td>{{ athlete["Current_Province"] }}</td>
+
       </tr>
     {% endfor %}
   </table>

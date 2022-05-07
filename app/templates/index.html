@@ -6,7 +6,17 @@
 <!-- Search Bar -->
 <div class="search-bar-wrapper">
   <form method="get">
+    <!-- Query Input -->
     <input type="text" placeholder="Masukkan Nama Atlet" name="query">
+    
+    <!-- Database Type -->
+    <br>
+    <input type="radio" id="html" name="database" value="MongoDB">
+    <label for="html">MongoDB</label>
+    <input type="radio" id="css" name="database" value="ElasticSearch">
+    <label for="css">ElasticSearch</label><br>
+
+    <!-- Submit Button -->
     <input type="submit" value="Submit">
   </form>
   <div class="search-bar"></div>

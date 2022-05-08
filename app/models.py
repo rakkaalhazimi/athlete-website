@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any
 from dataclasses import dataclass, fields
 
 
@@ -26,14 +26,23 @@ class Athletes:
     Current_Club: str
     Current_City: str
     Current_Province: str
-    # Achievment: List[Achievments]
-    # Current_School: str
-    # NISNAS: str
+
+@dataclass
+class AthletesSearch:
+    Athlete_Name: str
+    Current_Club: str
+    Current_City: str
+    Current_Province: str
 
 
-# All athelte fields
-athlete_fields = [field.name for field in fields(Athletes)]
-achievment_fields = [field.name for field in fields(Achievments)]
+def create_fields(dclass):
+    return [field.name for field in fields(dclass)]
+
+
+# All fields
+athlete_fields = create_fields(Athletes)
+athlete_search_fields = create_fields(AthletesSearch)
+achievment_fields = create_fields(Achievments)
     
 
 if __name__ == "__main__":

@@ -6,9 +6,14 @@
 <!-- Search Bar -->
 <div class="search-bar-wrapper">
   <form method="get">
+
     <!-- Query Input -->
-    <input type="text" placeholder="Masukkan Nama Atlet" name="query">
-    
+    {% for field in athlete_search_fields %}
+      {% set id_ = field + "_search" %}
+      <label for={{ id_ }}>{{ field }}</label>
+      <input type="text" name={{ field }} id={{ id_ }}>
+    {% endfor %}
+
     <!-- Database Type -->
     <br>
     <input type="radio" id="html" name="database" value="MongoDB" checked="checked">
@@ -39,14 +44,14 @@
     </tr>
 
     <!-- Athlete Data -->
-    {% for athlete in athletes %}
+    {% for athlete in athletes_data %}
       <tr>
         {% for field in athlete_fields %}
           <td>{{ athlete.get(field) }}</td>
         {% endfor %}
       </tr>
     {% endfor %}
-    
+
   </table>
 </div>
 

@@ -11,10 +11,11 @@
     
     <!-- Database Type -->
     <br>
-    <input type="radio" id="html" name="database" value="MongoDB">
+    <input type="radio" id="html" name="database" value="MongoDB" checked="checked">
     <label for="html">MongoDB</label>
     <input type="radio" id="css" name="database" value="ElasticSearch">
-    <label for="css">ElasticSearch</label><br>
+    <label for="css">ElasticSearch</label>
+    <br>
 
     <!-- Submit Button -->
     <input type="submit" value="Submit">
@@ -29,33 +30,23 @@
 <div class="search-result-wrapper">
   <p class="search-result-time">Waktu pencarian: 10 detik</p>
   <table class="search-result-table">
+    
+    <!-- Athlete Fields -->
     <tr>
-      <th>Athlete_ID</th>
-      <th>Athlete_Name</th>
-      <th>NISNAS</th>
-      <th>DoB</th>
-      <th>Sex</th>
-      <th>Level</th>
-      <th>Current_School</th>
-      <th>Current_Club</th>
-      <th>Current_City</th>
-      <th>Current_Province</th>
+      {% for field in athlete_fields %}
+        <th>{{ field }}</th>
+      {% endfor %}
     </tr>
+
+    <!-- Athlete Data -->
     {% for athlete in athletes %}
       <tr>
-        <td>{{ athlete["Athlete_ID"] }}</td>
-        <td>{{ athlete["Athlete_Name"] }}</td>
-        <td>{{ athlete["NISNAS"] }}</td>
-        <td>{{ athlete["DoB"] }}</td>
-        <td>{{ athlete["Sex"] }}</td>
-        <td>{{ athlete["Level"] }}</td>
-        <td>{{ athlete["Current_School"] }}</td>
-        <td>{{ athlete["Current_Club"] }}</td>
-        <td>{{ athlete["Current_City"] }}</td>
-        <td>{{ athlete["Current_Province"] }}</td>
-
+        {% for field in athlete_fields %}
+          <td>{{ athlete.get(field) }}</td>
+        {% endfor %}
       </tr>
     {% endfor %}
+    
   </table>
 </div>
 

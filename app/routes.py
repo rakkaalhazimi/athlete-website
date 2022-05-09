@@ -4,8 +4,10 @@ from app.models import athlete_fields, athlete_search_fields, achievment_fields
 from app.db_operator import MongodbOperator, ElasticOperator
 
 
-mongo_operator = MongodbOperator(mongo_client)
-elastic_operator = ElasticOperator(elastic_client)
+database = {
+    "MongoDB": MongodbOperator(mongo_client), 
+    "ElasticSearch": ElasticOperator(elastic_client)
+}
 
 
 @app.route("/", methods=["GET"])
@@ -17,15 +19,17 @@ def home():
         if value not in [None, ""]:
             queries[field] = value
 
+    # Choose DB
+    db_operator = database[request.args.get("database")]
+
     # Check if any user has query
     is_query = any(queries.values())
     if not is_query:
-        athletes_data = mongo_operator.search_operation()
+        athletes_data, elapsed = db_operator.common_search()
     else:
         filters = queries
-        documents, elapsed = elastic_operator.search_operation(filters)
-        print(documents, elapsed)
-        athletes_data = mongo_operator.search_operation(filters=filters)
+        athletes_data, elapsed = db_operator.query_search(filters)
+        print(athletes_data, elapsed)
 
     
     return render_template(

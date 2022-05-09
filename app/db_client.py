@@ -49,8 +49,7 @@ class MongoDB(DBClient):
             self.collection.insert_many(data)
 
     def search_data(self, filters: Filter = {}) -> Sequence[Document]:
-        items = self.collection.find(filters)
-        return [item for item in items]
+        return self.collection.find(filters)
 
     def update_data(self, filters: Filter, update: Document, how: str = "one"):
         how = how.lower()

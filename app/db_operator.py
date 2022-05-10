@@ -20,8 +20,8 @@ class MongodbOperator:
     def __init__(self, client: DBClient):
         self.client = client
 
-    def common_search(self):
-        search_result = self.client.search_data()
+    def common_search(self, filters: Dict = {}):
+        search_result = self.client.search_data(filters=filters)
         elapsed = get_mongo_elapsed(search_result)
         return search_result, elapsed
 
@@ -58,8 +58,8 @@ class ElasticOperator:
     def __init__(self, client: DBClient):
         self.client = client
 
-    def common_search(self):
-        search_result = self.client.search_data()
+    def common_search(self, filters: Dict = None):
+        search_result = self.client.search_data(filters)
         documents, elapsed = parse_elastic_results(search_result)
         return documents, elapsed
     

@@ -25,6 +25,7 @@ def home():
 
     # Check if any user has query
     is_query = any(queries.values())
+
     if not is_query:
         athletes_data, elapsed = db_operator.common_search()
     else:
@@ -37,4 +38,20 @@ def home():
         athlete_search_fields=athlete_search_fields,
         athletes_data=athletes_data,
         elapsed=elapsed
+    )
+
+
+@app.route("/<int:athlete_id>")
+def info(athlete_id):
+    # Database common search
+    athlete_info, elapsed = database["MongoDB"].common_search({"Athlete_ID": athlete_id})
+    
+    # Retrieve data from search results
+    athlete_info = next(athlete_info)
+
+    return render_template(
+        "info.html", 
+        athlete_info=athlete_info,
+        athlete_fields=athlete_fields,
+        achievment_fields=achievment_fields
     )

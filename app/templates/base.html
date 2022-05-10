@@ -47,6 +47,7 @@
 
   <!-- Javascript Files -->
   {% block scripts %}
+	<script src="{{ url_for("static", filename="js/main.js") }}" defer></script>
 	<script src="{{ url_for("static", filename="js/bootstrap.bundle.min.js") }}" defer></script>
 	{% endblock %}
 

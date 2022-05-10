@@ -56,10 +56,17 @@
 
     <!-- Athlete Data -->
     {% for athlete in athletes_data %}
-      <tr>
+      {% set link = url_for("info", athlete_id=athlete["Athlete_ID"]) %}
+
+      <tr 
+        style="cursor: pointer; cursor: hand" 
+        onclick="openNewTab('{{ link }}');" 
+      >
+
         {% for field in athlete_fields %}
-          <td>{{ athlete.get(field) }}</td>
+            <td>{{ athlete.get(field) }}</td>
         {% endfor %}
+
       </tr>
     {% endfor %}
 

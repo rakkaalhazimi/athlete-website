@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mb-5">
+  <!-- Athlete info -->
+  <h5>Data Atlit</h5>
+  {% for field in athlete_fields %}
+    <div class="row">
+      <div class="col-3">{{ field }}</div>
+      <div class="col">: {{ athlete_info[field] }}</div>
+    </div>
+  {% endfor %}
+  
+  <br>
+  <h5>Prestasi</h5>
+  <table class="table table-striped table-bordered table-hover">
+    <tr class="table-primary">
+      {% for field in achievment_fields %}
+        <th class="fw-normal">
+          {{ field }}
+        </th>
+      {% endfor %}
+
+      {% for achievments_info in athlete_info["Achievment"] %}
+        <tr>
+          {% for field in achievments_info %}
+            <td>{{ achievments_info[field] }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tr>
+  </table>
+  
+
+</div>
+{% endblock %}

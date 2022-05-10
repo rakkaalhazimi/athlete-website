@@ -1,0 +1,6 @@
+click==8.0.3
+elastic_transport==8.1.2
+elasticsearch==8.1.2
+Flask==2.0.2
+Flask_Admin==1.6.0
+pymongo==4.0.2

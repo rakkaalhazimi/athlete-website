@@ -43,12 +43,14 @@
     {% set elapsed = "kurang dari 0.001" %}
   {% endif %}
   <p><span class="fw-bold">Waktu pencarian:</span> {{ elapsed }} ms</p>
-  <table class="table table-striped table-bordered">
+
+  <!-- Table -->
+  <table class="table table-striped table-bordered table-hover">
     
     <!-- Athlete Fields -->
     <tr class="table-primary">
       {% for field in athlete_fields %}
-        <th>{{ field }}</th>
+        <th class="fw-normal">{{ field }}</th>
       {% endfor %}
     </tr>
 

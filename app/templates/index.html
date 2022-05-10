@@ -9,10 +9,10 @@
     <!-- Query Input -->
     {% for field in athlete_search_fields %}
     {% set id_ = field + "_search" %}
-    {% set field = field.replace("_", " ") %}
+    {% set field_label = field.replace("_", " ") %}
       <div class="row mb-3">
         <div class="col d-flex flex-column">
-          <label for={{ id_ }} class="form-label">{{ field }}</label>
+          <label for={{ id_ }} class="form-label">{{ field_label }}</label>
           <input type="text" name={{ field }} id={{ id_ }} class="form-control">
         </div>
       </div>

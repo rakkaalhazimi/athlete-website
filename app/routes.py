@@ -25,12 +25,10 @@ def home():
 
     # Check if any user has query
     is_query = any(queries.values())
-    print(is_query)
     if not is_query:
         athletes_data, elapsed = db_operator.common_search()
     else:
         filters = queries
-        print(filters)
         athletes_data, elapsed = db_operator.query_search(filters)
     
     return render_template(

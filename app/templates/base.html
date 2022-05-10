@@ -38,6 +38,13 @@
   {% block content %}
   {% endblock %}
 
+  <!-- Footer -->
+  <nav class="navbar navbar-light bg-secondary text-white">
+    <div class="container">
+      <span>Dibuat dengan: Flask</span>
+    </div>
+  </nav>
+
   <!-- Javascript Files -->
   {% block scripts %}
 	<script src="{{ url_for("static", filename="js/bootstrap.bundle.min.js") }}" defer></script>

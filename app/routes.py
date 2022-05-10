@@ -20,7 +20,8 @@ def home():
             queries[field] = value
 
     # Choose DB
-    db_operator = database[request.args.get("database")]
+    db_choice = request.args.get("database")
+    db_operator = database.get(db_choice) or database.get("MongoDB")
 
     # Check if any user has query
     is_query = any(queries.values())

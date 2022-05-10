@@ -7,10 +7,10 @@ from app import app, mongo_client, elastic_client
 def insert_data(path):
     with open(path, "r") as f:
         records = f.readlines()
-        for record in records:
-            dict_record = json.loads(record)
-            elastic_client.insert_data(dict_record)
-            mongo_client.insert_data(dict_record)
+        records = [json.loads(record) for record in records]
+        mongo_client.insert_data(records)
+        elastic_client.insert_data(records)
+            
 
 
 @app.cli.command("drop_collections")

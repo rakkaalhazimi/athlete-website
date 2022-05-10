@@ -77,7 +77,7 @@ class ES(DBClient):
     def __init__(self, host: str, user: str, pwd: str, index_name: str):
         self.host = host
         self.client = Elasticsearch(
-            hosts=self.host, basic_auth=(user, pwd), verify_certs=False
+            hosts=self.host, basic_auth=(user, pwd), verify_certs=True
         )
         self.index_name = index_name
 
@@ -132,7 +132,7 @@ class ES(DBClient):
             return bulk(client=self.client, actions=actions, refresh=True)
 
     def search_data(self, query: Query = None) -> ObjectApiResponse:
-        return self.client.search(index=self.index_name, query=query)
+        return self.client.search(index=self.index_name, query=query, size=500)
 
     def update_data(
         self, query: Query, update: Document, how: str = "one"

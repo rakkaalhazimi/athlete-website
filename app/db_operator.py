@@ -61,7 +61,6 @@ class ElasticOperator:
     def common_search(self):
         search_result = self.client.search_data()
         documents, elapsed = parse_elastic_results(search_result)
-        print(documents)
         return documents, elapsed
     
     def query_search(self, filters: Dict):

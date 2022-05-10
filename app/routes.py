@@ -30,8 +30,6 @@ def home():
     else:
         filters = queries
         athletes_data, elapsed = db_operator.query_search(filters)
-        print(athletes_data, elapsed)
-
     
     return render_template(
         "index.html", 

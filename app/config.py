@@ -12,8 +12,6 @@ class Config(object):
     MONGO_SERVER = "localhost:27017"
     INDEX = "athlete"
 
-    SQLALCHEMY_DATABASE_URI = "sqlite:////admin.db"
-
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'jdlfjds7834kjfksdfhdsds'
     
 

@@ -35,5 +35,6 @@ def home():
         "index.html", 
         athlete_fields=athlete_fields,
         athlete_search_fields=athlete_search_fields,
-        athletes_data=athletes_data
+        athletes_data=athletes_data,
+        elapsed=elapsed
     )

@@ -1,6 +1,4 @@
 from flask import Flask
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
 
 from app.config import Config
 from app.db_client import MongoDB, ES

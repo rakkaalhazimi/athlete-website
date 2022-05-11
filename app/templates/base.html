@@ -8,6 +8,7 @@
   {% block head %}
 
   <title>Atlit Riau dan Kepulauan Riau</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='/css/main.css') }}">
   <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='/css/bootstrap.min.css') }}">
 
   {% endblock %}
@@ -29,7 +30,9 @@
   <!-- Navbar -->
   <nav class="mb-5 navbar navbar-dark bg-dark text-light">
     <div class="container">
-      <span>Satu Data | Olahraga Renang</span>
+      <a href="{{ url_for('home') }}" class="text-decoration-none text-light">
+        <span>Satu Data | Olahraga Renang</span>
+      </a>
       <span>Provinsi Riau dan Kepulauan Riau</span>
     </div>
   </nav>

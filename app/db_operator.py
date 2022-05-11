@@ -5,12 +5,23 @@ from app.db_client import DBClient
 # Mongodb operations
 # ==================
 def get_mongo_query_search(filters: Dict):
+    """
+    Build mongoDB query search from specified filters.
+    
+    example:
+      input <- {"name": "aji"}
+      output <- {"$regex": {"name": ".*aji.*"}, "$options": "i" }
+
+    """
     query_search = dict(filters)
     patterns = [f".*{value}.*" for value in filters.values()]
     regex_query = [{"$regex": pattern, "$options": "i"} for pattern in patterns]
+    
     for field, query in zip(query_search.keys(), regex_query):
         query_search[field] = query
+
     return query_search
+
 
 def get_mongo_elapsed(search_result):
     return search_result.explain()["executionStats"]["executionTimeMillis"]
@@ -35,6 +46,14 @@ class MongodbOperator:
 # Elasticsearch operations
 # ========================
 def get_elastic_query_search(filters: Dict):
+    """
+    Build ElasticSearch query search from specified filters.
+    
+    example:
+      input <- {"name": "aji"}
+      output <- {"query_string": {"fields": "name", "query": "*aji*"}}
+      
+    """
     fields = list(filters.keys())
     query = [f"*{value}*" for value in filters.values()]
     query = " AND ".join(query)
@@ -47,10 +66,22 @@ def get_elastic_query_search(filters: Dict):
     return query_search
 
 def parse_elastic_results(search_result):
+    """
+    Parse ElasticSearch search results.
+    
+    The search results came with this format: 
+      {..., hits: {..., hits: ..., _source:}}
+    
+    The data lies inside _source keys, therefore we need
+    to access it.
+      
+    """
     documents = search_result["hits"]["hits"]
     if documents:
         documents = [doc["_source"] for doc in documents]
+
     elapsed = search_result["took"]
+    
     return documents, elapsed
 
 

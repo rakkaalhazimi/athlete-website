@@ -54,9 +54,9 @@ class MongoDB(DBClient):
     def update_data(self, filters: Filter, update: Document, how: str = "one"):
         how = how.lower()
         if how == "one":
-            self.collection.update_one(filters, update)
+            return self.collection.update_one(filters, update)
         elif how == "many":
-            self.collection.update_many(filters, update)
+            return self.collection.update_many(filters, update)
         else:
             raise ValueError(
                 f"Update method is either 'one' or 'many' but you type {how}"
@@ -64,9 +64,9 @@ class MongoDB(DBClient):
 
     def delete_data(self, filters: Filter, how: str = "one"):
         if how == "one":
-            self.collection.delete_one(filters)
+            return self.collection.delete_one(filters)
         elif how == "many":
-            self.collection.delete_many(filters)
+            return self.collection.delete_many(filters)
         else:
             raise ValueError(
                 f"Delete method is either 'one' or 'many' but you type {how}"

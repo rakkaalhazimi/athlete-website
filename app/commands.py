@@ -8,8 +8,8 @@ def insert_data(path):
     with open(path, "r") as f:
         records = f.readlines()
         records = [json.loads(record) for record in records]
-        for record in records:
-            elastic_client.insert_data(record)
+        # for record in records:
+        elastic_client.insert_data(records)
         mongo_client.insert_data(records)
             
             

@@ -8,14 +8,24 @@ def insert_data(path):
     with open(path, "r") as f:
         records = f.readlines()
         records = [json.loads(record) for record in records]
-        # for record in records:
-        elastic_client.insert_data(records)
-        mongo_client.insert_data(records)
-            
-            
 
+    elastic_client.insert_data(records)
+    mongo_client.insert_data(records)
+
+
+            
 
 @app.cli.command("drop_collections")
 def drop_collections():
     mongo_client.drop_collections()
     elastic_client.drop_collections()
+
+
+@app.cli.command("update_data")
+@click.argument("query", type=json.loads)
+@click.argument("update", type=json.loads)
+@click.argument("how")
+def update_data(query, update, how):
+    mongo_result = mongo_client.update_data(filters=query, update=update, how=how)
+    elastic_result = elastic_client.update_data(query=query, update=update, how=how)
+    click.echo(mongo_result)

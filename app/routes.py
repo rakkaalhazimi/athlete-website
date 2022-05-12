@@ -1,12 +1,12 @@
 from flask import request, render_template, flash
-from app import app, mongo_client, elastic_client
+from app import app
 from app.models import athlete_fields, athlete_search_fields, achievment_fields
-from app.db_operator import MongodbOperator, ElasticOperator
+from app.db_operator import mongo_operator, elastic_operator
 
 
 database = {
-    "MongoDB": MongodbOperator(mongo_client), 
-    "ElasticSearch": ElasticOperator(elastic_client)
+    "MongoDB": mongo_operator, 
+    "ElasticSearch": elastic_operator
 }
 
 

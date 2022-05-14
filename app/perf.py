@@ -1,11 +1,12 @@
 import time
 
+
 class TimeValue:
     def __init__(self, value):
         self.value = value
 
     def update(self, value):
-        self.value = value
+        self.value = round(value * 1000, 1)
 
 
 class CodeTimer:

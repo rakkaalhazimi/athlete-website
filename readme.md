@@ -32,3 +32,12 @@ Aplikasi yang mendukung pencarian data atlete cabang renang pada provinsi Riau d
     ```
     python run.py
     ```
+
+# Operasi CRUD
+## Memasukkan data
+```
+flask insert_data <jsonl_path>
+```
+`jsonl_path` merupakan file yang berisikan javascript object yang dipisahkan oleh `line break` atau `\n`
+
+## Me

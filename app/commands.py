@@ -11,11 +11,14 @@ runtemplate = "{} elapsed for {} ms"
 @click.argument("path")
 def insert_data(path):
     with open(path, "r") as f:
-        records = f.readlines()
+        records = f.read().splitlines()
         records = [json.loads(record) for record in records]
+    
+    mongo_result, mongo_elapsed = mongo_operator.common_insert(records)
+    elastic_result, elastic_elapsed = elastic_operator.common_insert(records)
 
-    elastic_client.insert_data(records)
-    mongo_client.insert_data(records)
+    click.echo(runtemplate.format("MongoDB", mongo_elapsed))
+    click.echo(runtemplate.format("Elastic", elastic_elapsed))
 
 
 @app.cli.command("drop_collections")
@@ -43,9 +46,7 @@ def update_data(query, update, how):
 @click.option("--query", type=json.loads)
 @click.option("--how")
 def delete_data(query, how):
-    mongo_result, mongo_elapsed = mongo_operator.common_delete(
-        filters=query, how=how
-    )
+    mongo_result, mongo_elapsed = mongo_operator.common_delete(filters=query, how=how)
     elastic_result, elastic_elapsed = elastic_operator.common_delete(
         query=query, how=how
     )

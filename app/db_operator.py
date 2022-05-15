@@ -19,6 +19,12 @@ class MongodbOperator:
         self.client = client
         self.query_builder = MongodbQueryBuilder()
         self.query_getter = MongodbQueryGetter()
+    
+    def common_insert(self, data: List[Dict]):
+        with timer as runtime:
+            insert_result = self.client.insert_data(data)
+        elapsed = runtime.value
+        return insert_result, elapsed
 
     def common_search(self, filters: Dict = {}):
         search_result = self.client.search_data(filters=filters)
@@ -40,7 +46,6 @@ class MongodbOperator:
         elapsed = runtime.value
         return update_result, elapsed
 
-
     def common_delete(self, filters: Dict, how: str = "one"):
         with timer as runtime:
             update_result = self.client.delete_data(
@@ -57,6 +62,11 @@ class ElasticOperator:
         self.client = client
         self.query_builder = EsQueryBuilder()
         self.query_getter = EsQueryGetter()
+
+    def common_insert(self, data: List[Dict]):
+        insert_result = self.client.insert_data(data)
+        elapsed = self.query_getter.get_elastic_elapsed(insert_result)
+        return insert_result, elapsed
 
     def common_search(self, query: Dict = None):
         search_result = self.client.search_data(query)

@@ -64,8 +64,9 @@ class ElasticOperator:
         self.query_getter = EsQueryGetter()
 
     def common_insert(self, data: List[Dict]):
-        insert_result = self.client.insert_data(data)
-        elapsed = self.query_getter.get_elastic_elapsed(insert_result)
+        with timer as runtime:
+            insert_result = self.client.insert_data(data)
+        elapsed = runtime.value
         return insert_result, elapsed
 
     def common_search(self, query: Dict = None):

@@ -1,4 +1,5 @@
 import click
+import copy
 import json
 from app import app, mongo_client, elastic_client
 from app.db_operator import mongo_operator, elastic_operator
@@ -11,11 +12,14 @@ runtemplate = "{} elapsed for {} ms"
 @click.argument("path")
 def insert_data(path):
     with open(path, "r") as f:
-        records = f.read().splitlines()
-        records = [json.loads(record) for record in records]
+        string_records = f.read().splitlines()
+        records = [json.loads(record) for record in string_records]
     
-    mongo_result, mongo_elapsed = mongo_operator.common_insert(records)
-    elastic_result, elastic_elapsed = elastic_operator.common_insert(records)
+    mongo_records = records
+    elastic_records = copy.deepcopy(records)
+
+    mongo_result, mongo_elapsed = mongo_operator.common_insert(mongo_records)
+    elastic_result, elastic_elapsed = elastic_operator.common_insert(elastic_records)
 
     click.echo(runtemplate.format("MongoDB", mongo_elapsed))
     click.echo(runtemplate.format("Elastic", elastic_elapsed))

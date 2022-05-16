@@ -32,6 +32,8 @@ Aplikasi yang mendukung pencarian data atlete cabang renang pada provinsi Riau d
     ```
     python run.py
     ```
+    
+<br>
 
 # Operasi CRUD
 ## Memasukkan data
@@ -40,4 +42,35 @@ flask insert_data <jsonl_path>
 ```
 `jsonl_path` merupakan file yang berisikan javascript object yang dipisahkan oleh `line break` atau `\n`
 
-## Me
+<br>
+
+## Memperbaharui data
+`flask update_data --query --update --how`
+contoh:
+```
+flask update_data --query="{\"Athlete_Name\": \"ADITHYA PRAYOGA\"}" --update="{\"Athlete_Name\": \"TENYOM KUCING\"}" --how="one"
+```
+keterangan:
+-query: kriteria data
+-update: data pengganti
+-how: banyaknya data yang akan diganti (one atau many)
+
+<br>
+
+## Menghapus data
+`flask update_data --query --update --how`
+contoh:
+```
+flask delete_data --query="{\"Athlete_Name\": \"ADITHYA PRAYOGA\"}" --how="one"
+```
+keterangan:
+-query: kriteria data
+-how: banyaknya data yang akan dihapus (one atau many)
+
+<br>
+
+
+## Menghapus koleksi
+```
+flask drop_collections
+```

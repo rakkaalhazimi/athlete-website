@@ -56,7 +56,7 @@
 
     <!-- Athlete Data -->
     {% for athlete in athletes_data %}
-      {% set link = url_for("info", athlete_id=athlete["Athlete_ID"]) %}
+      {% set link = url_for("info", athlete_id=athlete.get("Athlete_ID", 0)) %}
 
       <tr 
         style="cursor: pointer; cursor: hand" 

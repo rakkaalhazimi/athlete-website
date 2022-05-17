@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+
+    <div class="col-3">
+      <div class="list-group">
+        <button 
+          type="button" 
+          class="list-group-item list-group-item-action form-list-button active" 
+          onclick="change_form(this)"
+          btn-for="insert-form"
+        >
+          Insert
+        </button>
+        <button 
+          type="button" 
+          class="list-group-item list-group-item-action form-list-button" 
+          onclick="change_form(this)"
+          btn-for="update-form"
+        >
+        Update</button>
+        <button 
+          type="button" 
+          class="list-group-item list-group-item-action form-list-button" 
+          onclick="change_form(this)"
+          btn-for="delete-form"
+        >
+        Delete</button>
+      </div>
+    </div>
+
+    <div class="col">
+      <div id="insert-form" class="form-list row vh-100">
+        <h2>insert data</h2>
+      </div>
+      <div id="update-form" class="form-list row vh-100" style="display:none;">
+        <h2>update data</h2>
+      </div>
+      <div id="delete-form" class="form-list row vh-100" style="display:none;">
+        <h2>delete data</h2>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

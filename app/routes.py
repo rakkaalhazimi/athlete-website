@@ -55,3 +55,8 @@ def info(athlete_id):
         athlete_fields=athlete_fields,
         achievment_fields=achievment_fields
     )
+
+
+@app.route("/forms")
+def forms():
+    return render_template("forms.html")

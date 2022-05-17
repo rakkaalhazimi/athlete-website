@@ -2,6 +2,8 @@ from flask import request, render_template, redirect, flash, url_for
 from app import app
 from app.models import athlete_fields, athlete_search_fields, achievment_fields
 from app.db_operator import mongo_operator, elastic_operator
+from app.loader import read_file
+from app.validate import jsonable
 
 
 database = {
@@ -59,24 +61,40 @@ def info(athlete_id):
 
 @app.route("/forms")
 def forms():
+    sample_insert = read_file("samples/sample_insert.json")
+    sample_update = read_file("samples/sample_update.json")
+    sample_delete = read_file("samples/sample_delete.json")
+
     return render_template(
         "forms.html",
         athlete_fields=athlete_fields,
-        achievment_fields=achievment_fields
+        achievment_fields=achievment_fields,
+        sample_insert=sample_insert,
+        sample_update=sample_update,
+        sample_delete=sample_delete,
     )
 
 
 @app.route("/insert", methods=["POST"])
 def insert_from_web():
-    # flash(request.args)
+    test = request.json
+    data = jsonable(test["editor-insert"])
+    print("here")
+    print(data)
     return redirect(url_for("forms"))
 
 @app.route("/update", methods=["POST"])
 def update_from_web():
-    # flash(request.args)
+    test = request.json
+    data = jsonable(test["editor-update"])
+    print("here")
+    print(data)
     return redirect(url_for("forms"))
 
 @app.route("/delete", methods=["POST"])
 def delete_from_web():
-    # flash(request.args)
+    test = request.json
+    data = jsonable(test["editor-delete"])
+    print("here")
+    print(data)
     return redirect(url_for("forms"))

@@ -1663,7 +1663,6 @@ var TextInput = function(parentNode, host) {
     var inputHandler = null;
     this.setInputHandler = function(cb) {inputHandler = cb;};
     this.getInputHandler = function() {return inputHandler;};
-    this.text = text;
     var afterContextMenu = false;
     
     var sendText = function(value, fromInput) {

@@ -1,0 +1,30 @@
+{
+    "Athlete_ID": 13067, 
+    "Athlete_Name": "ADITHYA PRAYOGA", 
+    "NISNAS": "unknown", 
+    "DoB": "4/9/2005", 
+    "Sex": "MEN", 
+    "Level": "unknown", 
+    "Current_School": "unknown", 
+    "Current_Club": "SHANGRILA SWIMMING CLUB BATAM", 
+    "Current_City": "KOTA BATAM", 
+    "Current_Province": "KEP RIAU", 
+    "Achievment": [
+        {
+            "Rnk": "None", 
+            "Meet_ID": "None", 
+            "Besttime": "None", 
+            "FP": "None", 
+            "R1_Rate": "None", 
+            "R2_Rate": "None", 
+            "R3_Rate": "None", 
+            "Event_ID": "None", 
+            "Event_Description": "None", 
+            "Kind": "None", 
+            "Date": "None", 
+            "Place": "None"
+            
+        }
+    ]
+    
+}

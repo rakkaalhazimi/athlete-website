@@ -32,17 +32,80 @@
     </div>
 
     <div class="col">
+
       <div id="insert-form" class="form-list row vh-100">
-        <h2>insert data</h2>
+        <h2>Insert Data</h2>
+        <form method="post">
+        <!--
+          Athlete Fields
+          <h3>Athlete:</h3>
+          {% for field in athlete_fields %}
+          {% set id_ = field + "_insert" %}
+          {% set field_label = field.replace("_", " ") %}
+          
+            <div class="col mb-3">
+              <div class="col-2">
+                <label for={{ id_ }} class="form-label">{{ field_label }}</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" name={{ field }} id={{ id_ }} class="form-control">
+              </div>
+            </div>
+
+          {% endfor %}
+          -->
+
+          <!-- Achievment Fields -->
+          <!--
+          <h3>Achievments:</h3>
+          {% for field in achievment_fields %}
+          {% set id_ = field + "_insert" %}
+          {% set field_label = field.replace("_", " ") %}
+            <div class="row mb-3">
+              <div class="col d-flex flex-column">
+                <label for={{ id_ }} class="form-label">{{ field_label }}</label>
+                <input type="text" name={{ field }} id={{ id_ }} class="form-control">
+              </div>
+            </div>
+          {% endfor %}
+          -->
+          <pre id="editor-insert" style="height: 500px; width: 800"></pre>
+          <input type="submit" value="Insert" class="btn btn-primary">
+        </form>
       </div>
-      <div id="update-form" class="form-list row vh-100" style="display:none;">
-        <h2>update data</h2>
+      
+      <div id="update-form" class="form-list row" style="display:none;">
+        <h2>Update Data</h2>
+        <form method="post">
+          <pre id="editor-update" style="height: 500px; width: 800"></pre>
+          <input type="submit" value="Update" class="btn btn-success">
+        </form>
       </div>
-      <div id="delete-form" class="form-list row vh-100" style="display:none;">
-        <h2>delete data</h2>
+      
+      <div id="delete-form" class="form-list row" style="display:none;">
+        <h2>Delete Data</h2>
+        <form method="post">
+          <pre id="editor-delete" style="height: 500px; width: 800"></pre>
+          <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
       </div>
+
     </div>
 
   </div>
 </div>
+
+<script src="{{ url_for("static", filename="js/ace/ace.js") }}" type="text/javascript" charset="utf-8"></script>
+<script>
+  var editorsIds = ["editor-insert", "editor-update", "editor-delete"]
+
+  for (id of editorsIds) {
+    let editor = ace.edit(id)
+    editor.setTheme("ace/theme/chrome")
+    editor.session.setMode("ace/mode/json")
+    editor.textInput.text.setAttribute("name", id)
+    document.getElementById(id).style.fontSize='16px'
+  }
+</script>
 {% endblock %}
+

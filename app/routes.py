@@ -59,4 +59,8 @@ def info(athlete_id):
 
 @app.route("/forms")
 def forms():
-    return render_template("forms.html")
+    return render_template(
+        "forms.html",
+        athlete_fields=athlete_fields,
+        achievment_fields=achievment_fields
+    )

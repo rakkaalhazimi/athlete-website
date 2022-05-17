@@ -22,7 +22,4 @@ function change_form(obj) {
             btn.classList.remove("active")
         } 
     }
-
-    // windowObj.style.display = "none"
-
 }

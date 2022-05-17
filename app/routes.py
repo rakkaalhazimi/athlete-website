@@ -1,4 +1,4 @@
-from flask import request, render_template, flash
+from flask import request, render_template, redirect, flash, url_for
 from app import app
 from app.models import athlete_fields, athlete_search_fields, achievment_fields
 from app.db_operator import mongo_operator, elastic_operator
@@ -64,3 +64,19 @@ def forms():
         athlete_fields=athlete_fields,
         achievment_fields=achievment_fields
     )
+
+
+@app.route("/insert", methods=["POST"])
+def insert_from_web():
+    # flash(request.args)
+    return redirect(url_for("forms"))
+
+@app.route("/update", methods=["POST"])
+def update_from_web():
+    # flash(request.args)
+    return redirect(url_for("forms"))
+
+@app.route("/delete", methods=["POST"])
+def delete_from_web():
+    # flash(request.args)
+    return redirect(url_for("forms"))

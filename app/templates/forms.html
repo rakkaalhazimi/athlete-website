@@ -35,15 +35,14 @@
 
       <div id="insert-form" class="form-list row">
         <h2>Insert Data</h2>
-        <!--
-          Athlete Fields
-          <h3>Athlete:</h3>
+          <!-- Athlete Fields -->
+          <!-- <h3>Athlete:</h3>
           {% for field in athlete_fields %}
           {% set id_ = field + "_insert" %}
           {% set field_label = field.replace("_", " ") %}
           
-            <div class="col mb-3">
-              <div class="col-2">
+            <div class="col-6 mb-3">
+              <div class="col-6">
                 <label for={{ id_ }} class="form-label">{{ field_label }}</label>
               </div>
               <div class="col-auto">
@@ -51,23 +50,25 @@
               </div>
             </div>
 
-          {% endfor %}
-          -->
+          {% endfor %} -->
+         
 
           <!-- Achievment Fields -->
-          <!--
-          <h3>Achievments:</h3>
+          
+          <!-- <h3>Achievments:</h3>
           {% for field in achievment_fields %}
           {% set id_ = field + "_insert" %}
           {% set field_label = field.replace("_", " ") %}
-            <div class="row mb-3">
-              <div class="col d-flex flex-column">
+            <div class="col-6 mb-3">
+              <div class="col-6">
                 <label for={{ id_ }} class="form-label">{{ field_label }}</label>
+              </div>
+              <div class="col-auto">
                 <input type="text" name={{ field }} id={{ id_ }} class="form-control">
               </div>
             </div>
-          {% endfor %}
-          -->
+          {% endfor %} -->
+         
         <pre id="editor-insert" style="height: 500px; width: 800">{{ sample_insert }}</pre>
         <button 
           type="button"

@@ -9,7 +9,7 @@ function change_form(obj) {
 
 	for (form of formObjs) {
 		if (form.id == formId) {
-			form.style.display = "block"
+			form.style.display = ""
 		} else {
 			form.style.display = "none"
 		}

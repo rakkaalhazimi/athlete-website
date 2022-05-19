@@ -3,8 +3,14 @@ from flask import flash
 from app.db_operator import mongo_operator, elastic_operator
 
 
-def jsonable(text):
-    return json.loads(text)
+def jsonable_text(text):
+    try:
+        json_data = json.loads(text)
+        status = True
+    except json.decoder.JSONDecodeError:
+        json_data = None
+        status = False
+    return json_data, status
 
 
 def non_duplicate_id(query):
@@ -25,8 +31,16 @@ def non_duplicate_id(query):
 
 
 def validate_insert(text):
-    json_data = jsonable(text)
-    if not non_duplicate_id(json_data):
-        flash("Duplicate Athlete_ID, please use different numbers")
-        print("Failed")
-    return json_data
+    message = "Data Inserted"
+    
+    json_data, jsonable = jsonable_text(text)
+    if not jsonable:
+        message = "The text have a wrong json format"
+        return False, message
+    
+    not_duplicate = non_duplicate_id(json_data)
+    if not not_duplicate:
+        message = "Duplicate Athlete_ID, please use different numbers"
+        return False, message
+
+    return True, message

@@ -61,8 +61,6 @@ class MongodbOperator:
     def query_search(self, filters: Dict):
         """
         MongoDB regex string search data operator.
-        It is a search using match format in:
-        https://www.mongodb.com/docs/manual/reference/operator/query/regex/
 
         flow:
         json_data -> search_query -> database -> search_result -> documents
@@ -178,8 +176,6 @@ class ElasticOperator:
     def query_search(self, query: Dict):
         """
         ElasticSearch query string search data operator.
-        It is a search using query string format in:
-        https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
 
         flow:
         json_data -> search_query -> database -> search_result -> documents

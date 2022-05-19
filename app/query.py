@@ -9,6 +9,9 @@ class MongodbQueryBuilder:
     def create_mongo_regex_search(self, filters: Dict):
         """
         Create mongoDB regex search from specified filters.
+
+        It is a search using match format in:
+        https://www.mongodb.com/docs/manual/reference/operator/query/regex/
         
         example:
         input <- {"name": "aji", "school": "eden"}
@@ -44,6 +47,9 @@ class EsQueryBuilder:
     def create_elastic_query_search(self, filters: Dict):
         """
         Create ElasticSearch query search from specified filters.
+        
+        It is a search using query string format in:
+        https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
         
         example:
         input <- {"name": "aji", "school": "eden"}

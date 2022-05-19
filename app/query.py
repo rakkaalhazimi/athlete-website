@@ -11,8 +11,8 @@ class MongodbQueryBuilder:
         Create mongoDB regex search from specified filters.
         
         example:
-        input <- {"name": "aji"}
-        output <- {"$regex": {"name": ".*aji.*"}, "$options": "i" }
+        input <- {"name": "aji", "school": "eden"}
+        output <- {"$regex": {"name": ".*aji.*", "school": ".*eden.*"}, "$options": "i" }
 
         """
         query_search = dict(filters)
@@ -46,8 +46,8 @@ class EsQueryBuilder:
         Create ElasticSearch query search from specified filters.
         
         example:
-        input <- {"name": "aji"}
-        output <- {"query_string": {"fields": "name", "query": "*aji*"}}
+        input <- {"name": "aji", "school": "eden"}
+        output <- {"query_string": {"fields": ["name", "school"], "query": "*aji* AND *eden*"}}
         
         """
         fields = list(filters.keys())

@@ -67,11 +67,13 @@ def validate_update(text):
         message = "The text have a wrong json format"
         return False, message
 
+    query, update = json_data["query"], json_data["update"]
+
     # Duplicate Athlete_ID Check
-    if "Athlete_ID" in json_data.keys():
-        not_duplicate = non_duplicate_id(json_data)
+    if "Athlete_ID" in update.keys():
+        not_duplicate = non_duplicate_id(update)
         if not not_duplicate:
             message = "Duplicate Athlete_ID, please use different numbers"
             return False, message
-    
+
     return True, message

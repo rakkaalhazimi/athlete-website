@@ -90,7 +90,7 @@ def insert_from_web():
         mongo_operator.common_insert(json_data)
 
     session["message"] = message
-    return redirect(url_for("home"))
+    return "None"
 
 
 @app.route("/update", methods=["POST"])
@@ -111,7 +111,7 @@ def update_from_web():
         # )
 
     session["message"] = message
-    return redirect(url_for("forms"))
+    return "None"
 
 
 @app.route("/delete", methods=["POST"])
@@ -120,4 +120,4 @@ def delete_from_web():
     data = jsonable_text(test["editor-delete"])
     print("here")
     print(data)
-    return redirect(url_for("forms"))
+    return "None"

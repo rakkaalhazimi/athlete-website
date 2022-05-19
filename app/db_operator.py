@@ -16,7 +16,7 @@ timer = CodeTimer()
 # ==================
 class MongodbOperator:
     """
-    A concrete class to manage different queries needed for MongoDB Client operation.
+    A wrapper class to manage different queries needed for MongoDB Client operation.
     """
     def __init__(self, client: DBClient):
         self.client = client
@@ -123,7 +123,7 @@ class MongodbOperator:
 # ========================
 class ElasticOperator:
     """
-    A concrete class to manage different queries needed for ElasticSearch Client operation.
+    A wrapper class to manage different queries needed for ElasticSearch Client operation.
     """
     def __init__(self, client: DBClient):
         self.client = client

@@ -42,7 +42,7 @@ class MongodbQueryGetter:
 # ElasticSearch Query Functions
 # =============================
 class EsQueryBuilder:
-    """Class intended to create query for MongoDB"""
+    """Class intended to create query for ElasticSearch"""
     
     def create_elastic_query_search(self, filters: Dict):
         """
@@ -93,4 +93,11 @@ class EsQueryGetter:
 
 
     def get_elastic_elapsed(self, result):
+        """
+        Get time used of Elasticsearch operations.
+        
+        ElasticSearch results came with this format: 
+        {..., took: 10, ...,}
+
+        """
         return result["took"]

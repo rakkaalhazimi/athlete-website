@@ -3,9 +3,9 @@ from app import mongo_client, elastic_client
 from app.db_client import DBClient
 from app.query import (
     MongodbQueryBuilder,
-    MongodbQueryGetter,
+    MongodbResultParser,
     EsQueryBuilder,
-    EsQueryGetter,
+    EsResultParser,
 )
 from app.perf import CodeTimer
 
@@ -21,7 +21,7 @@ class MongodbOperator:
     def __init__(self, client: DBClient):
         self.client = client
         self.query_builder = MongodbQueryBuilder()
-        self.query_getter = MongodbQueryGetter()
+        self.result_parser = MongodbResultParser()
     
     def common_insert(self, data: List[Dict]):
         """
@@ -55,7 +55,7 @@ class MongodbOperator:
         
         """
         search_result = self.client.search_data(filters=filters)
-        elapsed = self.query_getter.get_mongo_elapsed(search_result)
+        elapsed = self.result_parser.get_mongo_elapsed(search_result)
         return search_result, elapsed
 
     def query_search(self, filters: Dict):
@@ -73,7 +73,7 @@ class MongodbOperator:
         """
         query = self.query_builder.create_mongo_regex_search(filters)
         search_result = self.client.search_data(filters=query)
-        elapsed = self.query_getter.get_mongo_elapsed(search_result)
+        elapsed = self.result_parser.get_mongo_elapsed(search_result)
         return search_result, elapsed
 
     def common_update(self, filters: Dict, update: Dict, how: str = "one"):
@@ -128,7 +128,7 @@ class ElasticOperator:
     def __init__(self, client: DBClient):
         self.client = client
         self.query_builder = EsQueryBuilder()
-        self.query_getter = EsQueryGetter()
+        self.result_parser = EsResultParser()
 
     def common_insert(self, data: List[Dict]):
         """
@@ -169,8 +169,8 @@ class ElasticOperator:
             search_query = self.query_builder.create_elastic_match_query(query)
 
         search_result = self.client.search_data(search_query)
-        documents = self.query_getter.get_documents_results(search_result)
-        elapsed = self.query_getter.get_elastic_elapsed(search_result)
+        documents = self.result_parser.get_documents_results(search_result)
+        elapsed = self.result_parser.get_elastic_elapsed(search_result)
         return documents, elapsed
 
     def query_search(self, query: Dict):
@@ -188,8 +188,8 @@ class ElasticOperator:
         """
         query = self.query_builder.create_elastic_query_search(query)
         search_result = self.client.search_data(query=query)
-        documents = self.query_getter.get_documents_results(search_result)
-        elapsed = self.query_getter.get_elastic_elapsed(search_result)
+        documents = self.result_parser.get_documents_results(search_result)
+        elapsed = self.result_parser.get_elastic_elapsed(search_result)
         return documents, elapsed
 
     def common_update(self, query: Dict, update: Dict, how: str = "one"):
@@ -210,7 +210,7 @@ class ElasticOperator:
         update_result = self.client.update_data(
             query=update_filter, update=update, how=how
         )
-        elapsed = self.query_getter.get_elastic_elapsed(update_result)
+        elapsed = self.result_parser.get_elastic_elapsed(update_result)
         return update_result, elapsed
 
     def common_delete(self, query: Dict, how: str = "one"):
@@ -230,7 +230,7 @@ class ElasticOperator:
         delete_result = self.client.delete_data(
             query=delete_filter, how=how
         )
-        elapsed = self.query_getter.get_elastic_elapsed(delete_result)
+        elapsed = self.result_parser.get_elastic_elapsed(delete_result)
         return delete_result, elapsed
 
 

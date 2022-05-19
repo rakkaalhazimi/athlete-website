@@ -10,7 +10,7 @@ class MongodbQueryBuilder:
         """
         Create mongoDB regex search from specified filters.
 
-        It is a search using match format in:
+        It is a search using regex format in:
         https://www.mongodb.com/docs/manual/reference/operator/query/regex/
         
         example:
@@ -31,8 +31,10 @@ class MongodbQueryBuilder:
         return update_query
 
 
-class MongodbQueryGetter:
-    """Class intended to retrieve something from MongoDB query"""
+# MongoDB Result Parser
+# =======================
+class MongodbResultParser:
+    """Class intended to retrieve something from MongoDB result"""
 
     def get_mongo_elapsed(self, result):
         return result.explain()["executionStats"]["executionTimeMillis"]
@@ -72,8 +74,10 @@ class EsQueryBuilder:
         return match_query
 
 
-class EsQueryGetter:
-    """Class intended to retrieve something from ES query"""
+# MongoDB ElasticSearch Parser
+# =======================
+class EsResultParser:
+    """Class intended to retrieve something from ES result"""
 
     def get_documents_results(self, search_result):
         """

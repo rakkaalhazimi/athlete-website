@@ -1,10 +1,10 @@
 import json
 from flask import request, render_template, redirect, flash, url_for, session
 from app import app
-from app.models import athlete_fields, athlete_search_fields, achievment_fields
+from app.models import athlete_show_fields, athlete_search_fields, achievment_fields
 from app.db_operator import mongo_operator, elastic_operator
 from app.loader import read_file
-from app.validate import jsonable_text, validate_insert
+from app.validate import jsonable_text, validate_insert, validate_update
 
 
 database = {
@@ -37,7 +37,7 @@ def home():
     
     return render_template(
         "index.html", 
-        athlete_fields=athlete_fields,
+        athlete_show_fields=athlete_show_fields,
         athlete_search_fields=athlete_search_fields,
         athletes_data=athletes_data,
         elapsed=elapsed
@@ -55,7 +55,7 @@ def info(athlete_id):
     return render_template(
         "info.html", 
         athlete_info=athlete_info,
-        athlete_fields=athlete_fields,
+        athlete_show_fields=athlete_show_fields,
         achievment_fields=achievment_fields
     )
 
@@ -72,7 +72,7 @@ def forms():
 
     return render_template(
         "forms.html",
-        athlete_fields=athlete_fields,
+        athlete_show_fields=athlete_show_fields,
         achievment_fields=achievment_fields,
         sample_insert=sample_insert,
         sample_update=sample_update,
@@ -90,16 +90,29 @@ def insert_from_web():
         mongo_operator.common_insert(json_data)
 
     session["message"] = message
-    
     return redirect(url_for("home"))
+
 
 @app.route("/update", methods=["POST"])
 def update_from_web():
-    test = request.json
-    data = jsonable_text(test["editor-update"])
-    print("here")
-    print(data)
+    valid, message = validate_update(request.json["editor-update"])
+
+    if valid:
+        json_data = json.loads(request.json["editor-update"])
+        # elastic_operator.common_update(
+        #     query=json_data["query"], 
+        #     update=json_data["update"], 
+        #     how=json_data["how"]
+        # )
+        # mongo_operator.common_update(
+        #     filters=json_data["query"], 
+        #     update=json_data["update"], 
+        #     how=json_data["how"]
+        # )
+
+    session["message"] = message
     return redirect(url_for("forms"))
+
 
 @app.route("/delete", methods=["POST"])
 def delete_from_web():

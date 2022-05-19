@@ -49,7 +49,7 @@
     
     <!-- Athlete Fields -->
     <tr class="table-primary">
-      {% for field in athlete_fields %}
+      {% for field in athlete_show_fields %}
         <th class="fw-normal">{{ field }}</th>
       {% endfor %}
     </tr>
@@ -63,7 +63,7 @@
         onclick="openNewTab('{{ link }}');" 
       >
 
-        {% for field in athlete_fields %}
+        {% for field in athlete_show_fields %}
             <td>{{ athlete.get(field) }}</td>
         {% endfor %}
 

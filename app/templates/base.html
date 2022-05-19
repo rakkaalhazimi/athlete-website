@@ -16,21 +16,7 @@
 </head>
 <body class="position-relative">
 
-  <!-- Message flashing -->
-	{% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for message in messages %}
-      <div 
-        class="alert alert-primary alert-dismissible fade show" 
-        role="alert"
-      >
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      {% endfor %}
-    
-    {% endif %}
-	{% endwith %}
+  
 
   <!-- <nav class="mb-5 navbar navbar-dark bg-dark text-light">
     <div class="container">
@@ -63,6 +49,22 @@
       </div>
     </div>
   </nav>
+
+  <!-- Message flashing -->
+	{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div 
+      class="alert alert-primary alert-dismissible fade show text-center" 
+      role="alert"
+    >
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  
+  {% endif %}
+{% endwith %}
   
   <!-- Main Content -->
   {% block content %}

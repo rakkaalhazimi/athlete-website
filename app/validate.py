@@ -1,6 +1,6 @@
 import json
-from flask import flash
 from app.db_operator import mongo_operator, elastic_operator
+from app.models import athlete_fields
 
 
 def jsonable_text(text):
@@ -30,17 +30,48 @@ def non_duplicate_id(query):
         return False
 
 
+def data_model_check(json_data):
+    athlete_keys = set(athlete_fields)
+    current_keys = set(json_data.keys())
+    outlier_keys = current_keys.difference(athlete_keys)
+    if not outlier_keys:
+        return True, outlier_keys
+    else:
+        return False, outlier_keys
+
+
 def validate_insert(text):
     message = "Data Inserted"
     
+    # JSON Format Check
     json_data, jsonable = jsonable_text(text)
     if not jsonable:
         message = "The text have a wrong json format"
         return False, message
     
+    # Duplicate Athlete_ID Check
     not_duplicate = non_duplicate_id(json_data)
     if not not_duplicate:
         message = "Duplicate Athlete_ID, please use different numbers"
         return False, message
 
+    return True, message
+
+
+def validate_update(text):
+    message = "Data Updated"
+    
+    # JSON Format Check
+    json_data, jsonable = jsonable_text(text)
+    if not jsonable:
+        message = "The text have a wrong json format"
+        return False, message
+
+    # Duplicate Athlete_ID Check
+    if "Athlete_ID" in json_data.keys():
+        not_duplicate = non_duplicate_id(json_data)
+        if not not_duplicate:
+            message = "Duplicate Athlete_ID, please use different numbers"
+            return False, message
+    
     return True, message

@@ -25,7 +25,7 @@ function change_form(obj) {
 }
 
 
-function sendText(obj, action) {
+function sendText(obj, action, editors) {
 	var editorId = obj.getAttribute("btn-for")
 	var editor = editors[editorId]
 	var content = editor.getValue()
@@ -36,6 +36,7 @@ function sendText(obj, action) {
 		// When receive OK status from API
 		if (this.readyState == 4 && this.status == 200) {
 			// Restore all changes when finish
+			window.location.href = "/forms"
 		}
 
 		// Else, show the loading image

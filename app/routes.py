@@ -3,7 +3,7 @@ from app import app
 from app.models import athlete_fields, athlete_search_fields, achievment_fields
 from app.db_operator import mongo_operator, elastic_operator
 from app.loader import read_file
-from app.validate import jsonable
+from app.validate import jsonable, validate_insert
 
 
 database = {
@@ -77,11 +77,9 @@ def forms():
 
 @app.route("/insert", methods=["POST"])
 def insert_from_web():
-    test = request.json
-    data = jsonable(test["editor-insert"])
-    print("here")
-    print(data)
-    return redirect(url_for("forms"))
+    data = validate_insert(request.json["editor-insert"])
+    print("test")
+    return redirect(url_for("home"))
 
 @app.route("/update", methods=["POST"])
 def update_from_web():

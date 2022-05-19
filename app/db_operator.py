@@ -70,7 +70,8 @@ class ElasticOperator:
         return insert_result, elapsed
 
     def common_search(self, query: Dict = None):
-        search_result = self.client.search_data(query)
+        search_query = self.query_builder.create_elastic_match_query(query)
+        search_result = self.client.search_data(search_query)
         documents = self.query_getter.get_documents_results(search_result)
         elapsed = self.query_getter.get_elastic_elapsed(search_result)
         return documents, elapsed

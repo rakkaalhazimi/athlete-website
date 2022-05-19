@@ -74,7 +74,7 @@
           type="button"
           class="btn btn-primary" 
           btn-for="editor-insert" 
-          onclick="sendText(this, '/insert')"
+          onclick="sendText(this, '/insert', editors)"
         >Insert
         </button>
       </div>
@@ -86,7 +86,7 @@
           type="button"
           class="btn btn-success"
           btn-for="editor-update" 
-          onclick="sendText(this, '/update')"
+          onclick="sendText(this, '/update', editors)"
         >Update
         </button>
       </div>
@@ -98,7 +98,7 @@
           type="button"
           class="btn btn-danger"
           btn-for="editor-delete" 
-          onclick="sendText(this, '/delete')"
+          onclick="sendText(this, '/delete', editors)"
         >Delete
         </button>
       </div>

@@ -12,21 +12,9 @@
   <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='/css/bootstrap.min.css') }}">
 
   {% endblock %}
-
 </head>
+
 <body class="position-relative">
-
-  
-
-  <!-- <nav class="mb-5 navbar navbar-dark bg-dark text-light">
-    <div class="container">
-      <a href="{{ url_for('home') }}" class="text-decoration-none text-light">
-        <span>Satu Data | Olahraga Renang</span>
-      </a>
-      <span>Provinsi Riau dan Kepulauan Riau</span>
-    </div>
-  </nav> -->
-  
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -52,19 +40,19 @@
 
   <!-- Message flashing -->
 	{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-    <div 
-      class="alert alert-primary alert-dismissible fade show text-center" 
-      role="alert"
-    >
-      {{ message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %}
-  
-  {% endif %}
-{% endwith %}
+    {% if messages %}
+      {% for message in messages %}
+      <div 
+        class="alert alert-primary alert-dismissible fade show text-center" 
+        role="alert"
+      >
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+    
+    {% endif %}
+  {% endwith %}
   
   <!-- Main Content -->
   {% block content %}

@@ -241,7 +241,15 @@ class ElasticOperator:
           elapsed: time used to delete data in ElasticSearch
         
         """
-        delete_filter = self.query_builder.create_elastic_match_query(query)
+        search_query = query
+        keys_len = len(search_query.keys())
+
+        if keys_len == 1:
+            delete_filter = self.query_builder.create_elastic_match_query(search_query)
+
+        elif keys_len > 1:
+            delete_filter = self.query_builder.create_elastic_multi_field_query(search_query)
+
         delete_result = self.client.delete_data(
             query=delete_filter, how=how
         )

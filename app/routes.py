@@ -4,7 +4,7 @@ from app import app
 from app.models import athlete_show_fields, athlete_search_fields, achievment_fields
 from app.db_operator import mongo_operator, elastic_operator
 from app.loader import read_file
-from app.validate import jsonable_text, validate_insert, validate_update
+from app.validate import validate_insert, validate_update, validate_delete
 
 
 database = {
@@ -116,8 +116,18 @@ def update_from_web():
 
 @app.route("/delete", methods=["POST"])
 def delete_from_web():
-    test = request.json
-    data = jsonable_text(test["editor-delete"])
-    print("here")
-    print(data)
+    valid, message = validate_delete(request.json["editor-delete"])
+
+    if valid:
+        json_data = json.loads(request.json["editor-delete"])
+        elastic_operator.common_delete(
+            query=json_data["query"], 
+            how=json_data["how"]
+        )
+        mongo_operator.common_delete(
+            filters=json_data["query"], 
+            how=json_data["how"]
+        )
+
+    session["message"] = message
     return "None"

@@ -77,3 +77,15 @@ def validate_update(text):
             return False, message
 
     return True, message
+
+
+def validate_delete(text):
+    message = "Data Deleted"
+    
+    # JSON Format Check
+    json_data, jsonable = jsonable_text(text)
+    if not jsonable:
+        message = "The text have a wrong json format"
+        return False, message
+
+    return True, message

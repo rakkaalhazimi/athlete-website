@@ -1,4 +1,5 @@
 import json
+
 from app.db_operator import mongo_operator, elastic_operator
 from app.models import athlete_fields
 

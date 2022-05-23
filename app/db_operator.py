@@ -1,4 +1,6 @@
+from abc import ABC, abstractmethod
 from typing import List, Dict
+
 from app import mongo_client, elastic_client
 from app.db_client import DBClient
 from app.query import (
@@ -12,9 +14,26 @@ from app.perf import CodeTimer
 timer = CodeTimer()
 
 
+class DBOperator(ABC):
+    @abstractmethod
+    def common_insert(self):
+        pass
+
+    @abstractmethod
+    def common_search(self):
+        pass
+
+    @abstractmethod
+    def common_update(self):
+        pass
+
+    @abstractmethod
+    def common_delete(self):
+        pass
+
 # Mongodb operations
 # ==================
-class MongodbOperator:
+class MongodbOperator(DBOperator):
     """
     A wrapper class to manage different queries needed for MongoDB Client operation.
     """
@@ -142,7 +161,7 @@ class MongodbOperator:
 
 # Elasticsearch operations
 # ========================
-class ElasticOperator:
+class ElasticOperator(DBOperator):
     """
     A wrapper class to manage different queries needed for ElasticSearch Client operation.
     """

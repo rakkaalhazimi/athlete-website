@@ -90,10 +90,16 @@ def insert_from_web():
     
     if valid:
         json_data = json.loads(request.json["editor-insert"])
-        elastic_operator.common_insert(json_data)
-        mongo_operator.common_insert(json_data)
+        es_result, es_elapsed = elastic_operator.common_insert(json_data)
+        mongo_result, mongo_elapsed = mongo_operator.common_insert(json_data)
+        
+        mongo_elapsed_msg = f" mongo: {mongo_elapsed} ms"
+        es_elapsed_msg = f" es: {es_elapsed} ms"
 
-    session["message"] = message
+        session["message"] = f"{message} | {mongo_elapsed_msg} | {es_elapsed_msg}"
+
+    else:
+        session["message"] = message
     return "None"
 
 
@@ -105,18 +111,24 @@ def update_from_web():
 
     if valid:
         json_data = json.loads(request.json["editor-update"])
-        elastic_operator.common_update(
+        es_result, es_elapsed = elastic_operator.common_update(
             query=json_data["query"], 
             update=json_data["update"], 
             how=json_data["how"]
         )
-        mongo_operator.common_update(
+        mongo_result, mongo_elapsed = mongo_operator.common_update(
             filters=json_data["query"], 
             update=json_data["update"], 
             how=json_data["how"]
         )
 
-    session["message"] = message
+        mongo_elapsed_msg = f" mongo: {mongo_elapsed} ms"
+        es_elapsed_msg = f" es: {es_elapsed} ms"
+        session["message"] = f"{message} | {mongo_elapsed_msg} | {es_elapsed_msg}"
+    
+    else:
+        session["message"] = message
+
     return "None"
 
 
@@ -128,14 +140,20 @@ def delete_from_web():
 
     if valid:
         json_data = json.loads(request.json["editor-delete"])
-        elastic_operator.common_delete(
+        es_result, es_elapsed = elastic_operator.common_delete(
             query=json_data["query"], 
             how=json_data["how"]
         )
-        mongo_operator.common_delete(
+        mongo_result, mongo_elapsed = mongo_operator.common_delete(
             filters=json_data["query"], 
             how=json_data["how"]
         )
 
-    session["message"] = message
+        mongo_elapsed_msg = f" mongo: {mongo_elapsed} ms"
+        es_elapsed_msg = f" es: {es_elapsed} ms"
+        session["message"] = f"{message} | {mongo_elapsed_msg} | {es_elapsed_msg}"
+    
+    else:
+        session["message"] = message
+
     return "None"

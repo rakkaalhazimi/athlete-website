@@ -69,9 +69,21 @@ class EsQueryBuilder:
         }
         return query_search
 
+
     def create_elastic_match_query(self, filters):
         """
         Create ElasticSearch match search from specified filters.
+        """
+        if len(filters.keys()) == 1:
+            match_query = self.create_elastic_single_match_query(filters)
+        else:
+            match_query = self.create_elastic_multi_match_query(filters)
+        return match_query
+
+
+    def create_elastic_single_match_query(self, filters):
+        """
+        Create ElasticSearch single match search from specified filters.
         
         It is a search using match format in:
         https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html
@@ -83,8 +95,9 @@ class EsQueryBuilder:
         """
         match_query = {"match": filters}
         return match_query
+        
 
-    def create_elastic_multi_field_query(self, filters):
+    def create_elastic_multi_match_query(self, filters):
         """
         Create ElasticSearch multi-field match search from specified filters.
         

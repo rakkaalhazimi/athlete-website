@@ -23,6 +23,7 @@ class MongodbOperator:
         self.query_builder = MongodbQueryBuilder()
         self.result_parser = MongodbResultParser()
     
+    
     def common_insert(self, data: List[Dict]):
         """
         MongoDB common insert data operator.
@@ -41,9 +42,28 @@ class MongodbOperator:
         elapsed = runtime.value
         return insert_result, elapsed
 
-    def common_search(self, filters: Dict = {}):
+
+    def common_search(self):
         """
         MongoDB common search data operator.
+
+        flow:
+        database -> search_result -> documents
+                                  -> elapsed
+
+        return:
+          documents: MongoDB search result's documents
+          elapsed: time used to search data in MongoDB
+        
+        """
+        search_result = self.client.search_data()
+        elapsed = self.result_parser.get_mongo_elapsed(search_result)
+        return search_result, elapsed
+
+
+    def match_search(self, filters: Dict):
+        """
+        MongoDB match search data operator.
 
         flow:
         json_data -> search_query -> database -> search_result -> documents
@@ -54,9 +74,10 @@ class MongodbOperator:
           elapsed: time used to search data in MongoDB
         
         """
-        search_result = self.client.search_data(filters=filters)
+        search_result = self.client.search_data(filters)
         elapsed = self.result_parser.get_mongo_elapsed(search_result)
         return search_result, elapsed
+
 
     def query_search(self, filters: Dict):
         """
@@ -150,7 +171,26 @@ class ElasticOperator:
         return insert_result, elapsed
 
 
-    def common_search(self, query: Dict = None):
+    def common_search(self):
+        """
+        ElasticSearch common search data operator.
+
+        flow:
+        database -> search_result -> documents
+                                  -> elapsed
+
+        return:
+          documents: ElasticSearch search result's documents
+          elapsed: time used to search data in ElasticSearch
+        
+        """
+        search_result = self.client.search_data()
+        documents = self.result_parser.get_documents_results(search_result)
+        elapsed = self.result_parser.get_elastic_elapsed(search_result)
+        return documents, elapsed
+
+
+    def match_search(self, query: Dict = None):
         """
         ElasticSearch common search data operator.
 
@@ -163,15 +203,7 @@ class ElasticOperator:
           elapsed: time used to search data in ElasticSearch
         
         """
-        search_query = query
-        keys_len = len(search_query.keys())
-
-        if keys_len == 1:
-            search_query = self.query_builder.create_elastic_match_query(query)
-
-        elif keys_len > 1:
-            search_query = self.query_builder.create_elastic_multi_field_query(query)
-
+        search_query = self.query_builder.create_elastic_match_query(query)
         search_result = self.client.search_data(search_query)
         documents = self.result_parser.get_documents_results(search_result)
         elapsed = self.result_parser.get_elastic_elapsed(search_result)
@@ -212,15 +244,7 @@ class ElasticOperator:
           elapsed: time used to update data in ElasticSearch
         
         """
-        search_query = query
-        keys_len = len(search_query.keys())
-
-        if keys_len == 1:
-            update_filter = self.query_builder.create_elastic_match_query(query)
-
-        elif keys_len > 1:
-            update_filter = self.query_builder.create_elastic_multi_field_query(query)
-
+        update_filter = self.query_builder.create_elastic_match_query(query)
         update_result = self.client.update_data(
             query=update_filter, update=update, how=how
         )
@@ -241,15 +265,7 @@ class ElasticOperator:
           elapsed: time used to delete data in ElasticSearch
         
         """
-        search_query = query
-        keys_len = len(search_query.keys())
-
-        if keys_len == 1:
-            delete_filter = self.query_builder.create_elastic_match_query(search_query)
-
-        elif keys_len > 1:
-            delete_filter = self.query_builder.create_elastic_multi_field_query(search_query)
-
+        delete_filter = self.query_builder.create_elastic_match_query(query)
         delete_result = self.client.delete_data(
             query=delete_filter, how=how
         )

@@ -67,6 +67,7 @@ def forms():
     sample_update = read_file("samples/sample_update.json")
     sample_delete = read_file("samples/sample_delete.json")
 
+    # Fetch operations messages
     if session.get("message"):
         flash(session["message"])
         session.pop("message")
@@ -83,6 +84,8 @@ def forms():
 
 @app.route("/insert", methods=["POST"])
 def insert_from_web():
+    """Receive insert request from Ajax"""
+
     valid, message = validate_insert(request.json["editor-insert"])
     
     if valid:
@@ -96,6 +99,8 @@ def insert_from_web():
 
 @app.route("/update", methods=["POST"])
 def update_from_web():
+    """Receive update request from Ajax"""
+
     valid, message = validate_update(request.json["editor-update"])
 
     if valid:
@@ -117,6 +122,8 @@ def update_from_web():
 
 @app.route("/delete", methods=["POST"])
 def delete_from_web():
+    """Receive delete request from Ajax"""
+
     valid, message = validate_delete(request.json["editor-delete"])
 
     if valid:

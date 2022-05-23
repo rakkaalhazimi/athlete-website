@@ -18,8 +18,8 @@ def non_duplicate_id(query):
     athlete_id = query["Athlete_ID"]
     search_query = {"Athlete_ID": athlete_id}
     
-    mongo_documents, _ = mongo_operator.common_search(search_query)
-    elastic_documents, _ = elastic_operator.common_search(search_query)
+    mongo_documents, _ = mongo_operator.match_search(search_query)
+    elastic_documents, _ = elastic_operator.match_search(search_query)
     
     len_mongo = len([doc for doc in mongo_documents])
     len_elastic = len(elastic_documents)

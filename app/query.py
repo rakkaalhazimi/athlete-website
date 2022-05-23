@@ -70,7 +70,37 @@ class EsQueryBuilder:
         return query_search
 
     def create_elastic_match_query(self, filters):
+        """
+        Create ElasticSearch match search from specified filters.
+        
+        It is a search using match format in:
+        https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html
+        
+        example:
+        input <- {"name": "aji", "school": "eden"}
+        output <- {"match": {"name": "aji", "school": "eden"}}
+        
+        """
         match_query = {"match": filters}
+        return match_query
+
+    def create_elastic_multi_field_query(self, filters):
+        """
+        Create ElasticSearch multi-field match search from specified filters.
+        
+        It is a search using boolean format in:
+        https://www.elastic.co/guide/en/elasticsearch/reference/8.2/query-dsl-bool-query.html
+        
+        example:
+        input <- {"name": "aji", "school": "eden"}
+        output <- {"bool": "must": {{"match": {"name": "aji"}, "match": {"school": "eden"}}}
+        
+        """
+        match_query = {
+            "bool": {
+                "must": [{"match": {field: value}} for field, value in filters.items()]
+            } 
+        }
         return match_query
 
 
@@ -102,6 +132,9 @@ class EsResultParser:
         
         ElasticSearch results came with this format: 
         {..., took: 10, ...,}
+
+        The data lies inside took keys, therefore we need
+        to access it.
 
         """
         return result["took"]

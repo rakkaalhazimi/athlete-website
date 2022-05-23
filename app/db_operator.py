@@ -130,6 +130,7 @@ class ElasticOperator:
         self.query_builder = EsQueryBuilder()
         self.result_parser = EsResultParser()
 
+
     def common_insert(self, data: List[Dict]):
         """
         ElasticSearch common insert data operator.
@@ -148,11 +149,10 @@ class ElasticOperator:
         elapsed = runtime.value
         return insert_result, elapsed
 
+
     def common_search(self, query: Dict = None):
         """
         ElasticSearch common search data operator.
-        It is a search using match format in:
-        https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html
 
         flow:
         json_data -> search_query -> database -> search_result -> documents
@@ -164,14 +164,19 @@ class ElasticOperator:
         
         """
         search_query = query
+        keys_len = len(search_query.keys())
 
-        if query:
+        if keys_len == 1:
             search_query = self.query_builder.create_elastic_match_query(query)
+
+        elif keys_len > 1:
+            search_query = self.query_builder.create_elastic_multi_field_query(query)
 
         search_result = self.client.search_data(search_query)
         documents = self.result_parser.get_documents_results(search_result)
         elapsed = self.result_parser.get_elastic_elapsed(search_result)
         return documents, elapsed
+
 
     def query_search(self, query: Dict):
         """
@@ -192,6 +197,7 @@ class ElasticOperator:
         elapsed = self.result_parser.get_elastic_elapsed(search_result)
         return documents, elapsed
 
+
     def common_update(self, query: Dict, update: Dict, how: str = "one"):
         """
         ElasticSearch common update data operator.
@@ -206,12 +212,21 @@ class ElasticOperator:
           elapsed: time used to update data in ElasticSearch
         
         """
-        update_filter = self.query_builder.create_elastic_match_query(query)
+        search_query = query
+        keys_len = len(search_query.keys())
+
+        if keys_len == 1:
+            update_filter = self.query_builder.create_elastic_match_query(query)
+
+        elif keys_len > 1:
+            update_filter = self.query_builder.create_elastic_multi_field_query(query)
+
         update_result = self.client.update_data(
             query=update_filter, update=update, how=how
         )
         elapsed = self.result_parser.get_elastic_elapsed(update_result)
         return update_result, elapsed
+
 
     def common_delete(self, query: Dict, how: str = "one"):
         """

@@ -99,16 +99,16 @@ def update_from_web():
 
     if valid:
         json_data = json.loads(request.json["editor-update"])
-        # elastic_operator.common_update(
-        #     query=json_data["query"], 
-        #     update=json_data["update"], 
-        #     how=json_data["how"]
-        # )
-        # mongo_operator.common_update(
-        #     filters=json_data["query"], 
-        #     update=json_data["update"], 
-        #     how=json_data["how"]
-        # )
+        elastic_operator.common_update(
+            query=json_data["query"], 
+            update=json_data["update"], 
+            how=json_data["how"]
+        )
+        mongo_operator.common_update(
+            filters=json_data["query"], 
+            update=json_data["update"], 
+            how=json_data["how"]
+        )
 
     session["message"] = message
     return "None"

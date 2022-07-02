@@ -34,7 +34,7 @@ def home():
         athletes_data, elapsed = db_operator.common_search()
     else:
         filters = queries
-        athletes_data, elapsed = db_operator.query_search(filters)
+        athletes_data, elapsed = db_operator.match_search(filters)
     
     return render_template(
         "index.html", 

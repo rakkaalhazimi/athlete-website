@@ -6,7 +6,7 @@ class Config(object):
     TESTING = False
 
     ES_USER = "elastic"
-    ES_PWD = "ukPIFFhT0YVkh-epZtoE"
+    ES_PWD = "gNKzZmmj*_K1*cM2-9nG"
     ES_SERVER = "https://localhost:9200"
 
     MONGO_SERVER = "localhost:27017"

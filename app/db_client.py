@@ -77,7 +77,7 @@ class ES(DBClient):
     def __init__(self, host: str, user: str, pwd: str, index_name: str):
         self.host = host
         self.client = Elasticsearch(
-            hosts=self.host, basic_auth=(user, pwd), verify_certs=True
+            hosts=self.host, basic_auth=(user, pwd), verify_certs=False
         )
         self.index_name = index_name
 
